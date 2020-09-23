@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<GridPane 
+	xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="view.SonglibController"
+	vgap="10" hgap="10">
+
+    <Text text="Song List" />
+    <ListView fx:id="listView" GridPane.rowIndex ="1" GridPane.columnIndex="0"/>
+    <Text text =""  GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    
+    <Text text = "Name" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+    <Text text = "Artist" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+    <Text text = "Year" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+    <Text text = "Album" GridPane.rowIndex="0" GridPane.columnIndex="4" />
+    
+    <Text fx:id="displayName" text = "" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    <Text fx:id="displayArtist" text = "" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+    <Text fx:id ="displayYear" text = "" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+    <Text fx:id="displayAlbum" text = "" GridPane.rowIndex="1" GridPane.columnIndex="4" />
+    
+    <Text text ="Name" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Text text ="Artist" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+    <Text text ="Year" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+    <Text text ="Album" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
+    
+    <Button fx:id="add" text= "Add" onAction="#add" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+    <TextField fx:id="addName" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+	<TextField fx:id="addArtist" GridPane.rowIndex="3" GridPane.columnIndex="2" />
+	<TextField fx:id="addYear" GridPane.rowIndex="3" GridPane.columnIndex="3" />
+	<TextField fx:id ="addAlbum" GridPane.rowIndex="3" GridPane.columnIndex="4" />
+	
+	<Text text =""  GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+	<Text text ="Original Name" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    <Text text ="Original Artist" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+    <Text text ="Original Year" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+    <Text text ="Original Album" GridPane.rowIndex="4" GridPane.columnIndex="4"/>
+	<Text text ="Name" GridPane.rowIndex="4" GridPane.columnIndex="5"/>
+    <Text text ="Artist" GridPane.rowIndex="4" GridPane.columnIndex="6"/>
+    <Text text ="Year" GridPane.rowIndex="4" GridPane.columnIndex="7"/>
+    <Text text ="Album" GridPane.rowIndex="4" GridPane.columnIndex="8"/>
+    
+    <Button fx:id="edit" onAction="#edit" text= "Edit" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+    <TextField fx:id="editOGName" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+	<TextField fx:id="editOGArtist" GridPane.rowIndex="5" GridPane.columnIndex="2" />
+	<TextField GridPane.rowIndex="5" GridPane.columnIndex="3" />
+	<TextField GridPane.rowIndex="5" GridPane.columnIndex="4" />
+	<TextField fx:id="editName" GridPane.rowIndex="5" GridPane.columnIndex="5" />
+	<TextField fx:id= "editArtist" GridPane.rowIndex="5" GridPane.columnIndex="6" />
+	<TextField fx:id= "editYear" GridPane.rowIndex="5" GridPane.columnIndex="7" />
+	<TextField fx:id= "editAlbum" GridPane.rowIndex="5" GridPane.columnIndex="8" />
+	
+	<Button fx:id="delete" onAction="#delete" text = "Delete" GridPane.rowIndex = "6" GridPane.columnIndex="0"/>
+	
+</GridPane>
