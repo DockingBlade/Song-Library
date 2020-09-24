@@ -83,7 +83,7 @@ public class SonglibController {
 				if(line.equals("")) {
 					break;
 				}
-				String [] list = line.split("@\\*"); //creates a String array of name, artist, year, and album to map to 
+				String [] list = line.split("\\|"); //creates a String array of name, artist, year, and album to map to 
 				String key = list[0] + " by " +list[1]; //creates String of Name and Artist to Display on the GUI 
 				map.put(key.toLowerCase(), list); //maps the displayed name to the array containing the rest of the information 
 				obsList.add(key); //adds the key string to the display, we assume the file is already sorted 
@@ -170,8 +170,32 @@ public class SonglibController {
 			return;
 					
 		}
+		
+		
+		
 		if(year == null || year.equals("")) { //if the Year field is empty sets it to the "null" String
 			year = new String ("null");
+		}
+		else {
+			try {
+				int yearInt = Integer.parseInt(year);
+				if(yearInt < 0) {
+					Alert info = new Alert(AlertType.INFORMATION);
+					info.initOwner(primaryStage);
+					info.setHeaderText("Error Invalid Arguements");
+					info.setContentText("The year is less than 0, this is invalid");
+					info.showAndWait();
+					return;
+				}
+			}
+			catch(Exception e) {
+				Alert info = new Alert(AlertType.INFORMATION);
+				info.initOwner(primaryStage);
+				info.setHeaderText("Error Invalid Arguements");
+				info.setContentText("The year is not in a numermic or Integer format this is invalid");
+				info.showAndWait();
+				return;
+			}
 		}
 		if(album == null || album.equals("")) { // if the Year field is empty sets it to the "null" String
 			album = new String ("null");
@@ -239,6 +263,28 @@ public class SonglibController {
 		}
 		if(year == null || year.equals("")) { //if the Year field is empty sets it to the "null" String
 			year = new String ("null");
+		}
+		
+		else {
+			try {
+				int yearInt = Integer.parseInt(year);
+				if(yearInt < 0) {
+					Alert info = new Alert(AlertType.INFORMATION);
+					info.initOwner(primaryStage);
+					info.setHeaderText("Error Invalid Arguements");
+					info.setContentText("The year is less than 0, this is invalid");
+					info.showAndWait();
+					return;
+				}
+			}
+			catch(Exception e) {
+				Alert info = new Alert(AlertType.INFORMATION);
+				info.initOwner(primaryStage);
+				info.setHeaderText("Error Invalid Arguements");
+				info.setContentText("The year is not in a numermic or Integer format this is invalid");
+				info.showAndWait();
+				return;
+			}
 		}
 		if(album == null || album.equals("")) { // if the Year field is empty sets it to the "null" String
 			album = new String ("null");
@@ -366,13 +412,13 @@ public class SonglibController {
 				String [] args = map.get(key.toLowerCase());
 				String toWrite = null;
 				if(args.length == 4) {
-					toWrite = args[0] + "@*" + args[1] + "@*" +args[2] +"@*" +args[3] + "\n";
+					toWrite = args[0] + "|" + args[1] + "|" +args[2] +"|" +args[3] + "\n";
 				}
 				else if(args.length == 3) {
-					toWrite = args[0] + "@*" + args[1] + "@*" +args[2] + "\n";
+					toWrite = args[0] + "|" + args[1] + "|" +args[2] + "\n";
 				}
 				else {
-					toWrite = args[0] + "@*" + args[1] + "\n";
+					toWrite = args[0] + "|" + args[1] + "\n";
 				}
 				if(toWrite != null) {
 					output.write(toWrite);
