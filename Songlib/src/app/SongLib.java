@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 import view.SonglibController;
 import javafx.scene.control.ListView;
 
-public class SonglibApp extends Application{
+public class SongLib extends Application{
 	public void start(Stage primaryStage) 
 			throws Exception {
 				// TODO Auto-generated method stub
