@@ -51,6 +51,7 @@ public class SonglibController {
 	private ObservableList<String> obsList;
 	BufferedReader in;
 	HashMap<String,String[]> map;
+	//HashMap<String,String> trimmedMap;
 	Stage primaryStage;
 	
 	public void start(Stage mainStage) {
@@ -77,6 +78,7 @@ public class SonglibController {
 		}
 		
 		map = new HashMap<>(); //Initializes the map, maps Strings in the observable list to an array of Strings that contains the Name, Artist, Year, and Album
+		//trimmedMap = new HashMap<>();
 		String line;
 		try {
 			while((line=in.readLine()) != null ) { //reads in each line of the Songlib.txt file
@@ -84,8 +86,10 @@ public class SonglibController {
 					break;
 				}
 				String [] list = line.split("\\|"); //creates a String array of name, artist, year, and album to map to 
-				String key = list[0] + " by " +list[1]; //creates String of Name and Artist to Display on the GUI 
-				map.put(key.toLowerCase(), list); //maps the displayed name to the array containing the rest of the information 
+				String key = list[0].trim() + " by " +list[1].trim(); //creates String of Name and Artist to Display on the GUI
+				//String trimmedKey = list[0].trim().toLowerCase() +"by" + list[1].trim().toLowerCase();
+				map.put(key.toLowerCase(), list); //maps the displayed name to the array containing the rest of the information
+				//trimmedMap.put(key.toLowerCase(), trimmedKey);
 				obsList.add(key); //adds the key string to the display, we assume the file is already sorted 
 			}
 			in.close();
@@ -161,7 +165,7 @@ public class SonglibController {
 		String year = addYear.getText();
 		String album = addAlbum.getText();
 		
-		if(name == null || name.equals("") || artist == null || artist.equals("")) { //if the name or artist is empty creates an alert and then returns 
+		if(name == null || name.trim().equals("") || artist == null || artist.trim().equals("")) { //if the name or artist is empty creates an alert and then returns 
 			Alert info = new Alert(AlertType.INFORMATION);
 			info.initOwner(primaryStage);
 			info.setHeaderText("Error Invalid Arguements");
@@ -171,14 +175,23 @@ public class SonglibController {
 					
 		}
 		
+		String key = name.trim().toLowerCase() + " by " + artist.trim().toLowerCase();
+		if(map.containsKey(key)) {
+				Alert info = new Alert(AlertType.INFORMATION);
+				info.initOwner(primaryStage);
+				info.setHeaderText("Error Invalid Arguements");
+				info.setContentText("This song has already been entered");
+				info.showAndWait();
+				return;
+		}
 		
 		
-		if(year == null || year.equals("")) { //if the Year field is empty sets it to the "null" String
+		if(year == null || year.trim().equals("")) { //if the Year field is empty sets it to the "null" String
 			year = new String ("null");
 		}
 		else {
 			try {
-				int yearInt = Integer.parseInt(year);
+				int yearInt = Integer.parseInt(year.trim());
 				if(yearInt < 0) {
 					Alert info = new Alert(AlertType.INFORMATION);
 					info.initOwner(primaryStage);
@@ -197,7 +210,7 @@ public class SonglibController {
 				return;
 			}
 		}
-		if(album == null || album.equals("")) { // if the Year field is empty sets it to the "null" String
+		if(album == null || album.trim().equals("")) { // if the Year field is empty sets it to the "null" String
 			album = new String ("null");
 		}
 		
@@ -208,22 +221,23 @@ public class SonglibController {
 			return;
 		}
 		
-		String listingName = name + " by " +artist; //creates a key to map to, and to display on the GUI
+		String listingName = name.trim() + " by " +artist.trim(); //creates a key to map to, and to display on the GUI
 		String [] list = new String [4]; //creates a list containing all the information for a Name and Artist pair
-		list[0] =name;
-		list[1] = artist;
-		list[2] = year;
-		list[3] = album;
+		list[0] =name.trim();
+		list[1] = artist.trim();
+		list[2] = year.trim();
+		list[3] = album.trim();
 		
 		if(obsList.size() == 0) { //if the list is empty, adds the item to the list and displays it 
 			obsList.add(listingName);
 			map.put(listingName.toLowerCase(), list);
+			//trimmedMap.put(listingName.toLowerCase(), trimmedKey);
 			listView.getSelectionModel().select(0);
 			display();
 			return;
 		}
 		for(int i = 0; i < obsList.size(); i++) { //searches for the first string greater than the listingName in the list and inserts it at that index  
-			if(obsList.get(i).toLowerCase().equals(listingName.toLowerCase())) { //if the name-artist pair exists in the table opens an alert and ends the program 
+			if(obsList.get(i).toLowerCase().equals(key)) { //if the name-artist pair exists in the table opens an alert and ends the program 
 				Alert info = new Alert(AlertType.INFORMATION);
 				info.initOwner(primaryStage);
 				info.setHeaderText("Error Invalid Arguements");
@@ -234,6 +248,7 @@ public class SonglibController {
 			if(listingName.toLowerCase().compareTo(obsList.get(i).toLowerCase()) < 0) {
 				obsList.add(i,listingName);
 				map.put(listingName.toLowerCase(), list);
+				//trimmedMap.put(listingName.toLowerCase(), trimmedKey );
 				listView.getSelectionModel().select(i);
 				display();
 				return;
@@ -243,6 +258,7 @@ public class SonglibController {
 		//if the lisitingName is greater lexicographically than all Strings in the list the listing is added at the end of the list. 
 		obsList.add(listingName);
 		map.put(listingName.toLowerCase(), list);
+		//trimmedMap.put(listingName.toLowerCase(), trimmedKey);
 		listView.getSelectionModel().select(obsList.size()-1);
 		display();
 		return;
@@ -250,9 +266,9 @@ public class SonglibController {
 		
 		
 	}
-	public void add(String name, String artist, String year, String album, String OGString) {
+	public void add(String name, String artist, String year, String album, String OGString, String OG_Trimmed_String) {
 		
-		if(name == null || name.equals("") || artist == null || artist.equals("")) { //if the name or artist is empty creates an alert and then returns 
+		if(name == null || name.trim().equals("") || artist == null || artist.trim().equals("")) { //if the name or artist is empty creates an alert and then returns 
 			Alert info = new Alert(AlertType.INFORMATION);
 			info.initOwner(primaryStage);
 			info.setHeaderText("Error Invalid Arguements");
@@ -261,13 +277,13 @@ public class SonglibController {
 			return;
 					
 		}
-		if(year == null || year.equals("")) { //if the Year field is empty sets it to the "null" String
+		if(year == null || year.trim().equals("")) { //if the Year field is empty sets it to the "null" String
 			year = new String ("null");
 		}
 		
 		else {
 			try {
-				int yearInt = Integer.parseInt(year);
+				int yearInt = Integer.parseInt(year.trim());
 				if(yearInt < 0) {
 					Alert info = new Alert(AlertType.INFORMATION);
 					info.initOwner(primaryStage);
@@ -286,35 +302,38 @@ public class SonglibController {
 				return;
 			}
 		}
-		if(album == null || album.equals("")) { // if the Year field is empty sets it to the "null" String
+		if(album == null || album.trim().equals("")) { // if the Year field is empty sets it to the "null" String
 			album = new String ("null");
 		}
 		
 		map.remove(OGString.toLowerCase());
-		for(int i= 0; i<obsList.size();i++) {
+		//trimmedMap.remove(name.trim().toLowerCase()+"by" +artist.trim().toLowerCase());
+		for(int i= 0; i<obsList.size();i++) { //removes the old-name artist pair 
 			if(obsList.get(i).toLowerCase().equals(OGString.toLowerCase())) {
 				obsList.remove(i);
 			}
 		}
-		
+		//trimmedMap.remove(OGString.toLowerCase());
 		//obsList.remove(OGString);
 		
-		String listingName = name + " by " +artist; //creates a key to map to, and to display on the GUI
+		String listingName = name.trim() + " by " +artist.trim(); //creates a key to map to, and to display on the GUI
 		String [] list = new String [4]; //creates a list containing all the information for a Name and Artist pair
-		list[0] =name;
-		list[1] = artist;
-		list[2] = year;
-		list[3] = album;
+		list[0] =name.trim();
+		list[1] = artist.trim();
+		list[2] = year.trim();
+		list[3] = album.trim();
+		//String trimmedListingName = name.trim().toLowerCase() + "by" + artist.trim().toLowerCase();
 		
 		if(obsList.size() == 0) { //if the list is empty, adds the item to the list and displays it 
 			obsList.add(listingName);
 			map.put(listingName.toLowerCase(), list);
+			//trimmedMap.put(listingName.toLowerCase(), trimmedListingName);
 			listView.getSelectionModel().select(0);
 			display();
 			return;
 		}
 		for(int i = 0; i < obsList.size(); i++) { //searches for the first string greater than the listingName in the list and inserts it at that index  
-			if(obsList.get(i).toLowerCase().equals(listingName.toLowerCase())) { //if the name-artist pair exists in the table opens an alert and ends the program 
+			if(obsList.get(i).toLowerCase().equals(listingName.toLowerCase())) { //if the name-artist pair exists in the table opens an alert and ends the program, this should never trigger
 				Alert info = new Alert(AlertType.INFORMATION);
 				info.initOwner(primaryStage);
 				info.setHeaderText("Error Invalid Arguements");
@@ -325,6 +344,7 @@ public class SonglibController {
 			if(listingName.toLowerCase().compareTo(obsList.get(i).toLowerCase()) < 0) {
 				obsList.add(i,listingName);
 				map.put(listingName.toLowerCase(), list);
+				//trimmedMap.put(listingName.toLowerCase(), trimmedListingName);
 				listView.getSelectionModel().select(i);
 				display();
 				return;
@@ -334,6 +354,7 @@ public class SonglibController {
 		//if the lisitingName is greater lexicographically than all Strings in the list the listing is added at the end of the list. 
 		obsList.add(listingName);
 		map.put(listingName.toLowerCase(), list);
+		//trimmedMap.put(listingName.toLowerCase(), trimmedListingName);
 		listView.getSelectionModel().select(obsList.size()-1);
 		display();
 		return;
@@ -363,7 +384,8 @@ public class SonglibController {
 		String year = editYear.getText();
 		String album = editAlbum.getText();
 		
-		String OGString = OGname + " by " + OGartist;
+		String OG_Trimmed_String = OGname.trim().toLowerCase() + "by" + OGartist.trim().toLowerCase();
+		String OGString = OGname.trim() + " by " + OGartist.trim();
 		if(!map.containsKey(OGString.toLowerCase())) {
 			Alert info = new Alert(AlertType.INFORMATION);
 			info.initOwner(primaryStage);
@@ -373,9 +395,10 @@ public class SonglibController {
 			return;
 		}
 		
-		String newString = name + " by " +artist;
-		if(OGString.toLowerCase().equals(newString.toLowerCase())){
-			add(name,artist,year,album,OGString);
+		//String newTrimmedString = name.trim().toLowerCase() + "by" +artist.trim().toLowerCase();
+		String newString = name.trim() + " by " +artist.trim();
+		if(OGString.toLowerCase().equals(newString.toLowerCase())){ //this case covers when the user wants to edit a song's fields that do not include the artist or name
+			add(name,artist,year,album,OGString,OG_Trimmed_String);
 			return; 
 		}
 		if(map.containsKey(newString.toLowerCase())) {
@@ -389,7 +412,7 @@ public class SonglibController {
 		
 		
 		
-		add(name,artist,year,album,OGString);
+		add(name,artist,year,album,OGString,OG_Trimmed_String);
 	}
 	
 	public void end() {
@@ -450,6 +473,7 @@ public class SonglibController {
 			return;
 		}
 		if(obsList.size() == 1) {
+			//trimmedMap.remove(obsList.get(0).toLowerCase());
 			map.remove(obsList.get(0).toLowerCase());
 			obsList.remove(0);
 			displayName.setText("");
@@ -459,6 +483,7 @@ public class SonglibController {
 			return;
 		}
 		if(index == obsList.size()-1) {
+			//trimmedMap.remove(obsList.get(index).toLowerCase());
 			map.remove(obsList.get(index).toLowerCase());
 			obsList.remove(index);
 			listView.getSelectionModel().select(obsList.size()-1);
@@ -466,6 +491,7 @@ public class SonglibController {
 			return;
 		}
 		
+		//trimmedMap.remove(obsList.get(index).toLowerCase());
 		map.remove(obsList.get(index).toLowerCase());
 		obsList.remove(index);
 		listView.getSelectionModel().select(index);
