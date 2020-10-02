@@ -39,22 +39,18 @@
 	<Text text =""  GridPane.rowIndex="4" GridPane.columnIndex="0"/>
 	<Text text ="Original Name" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
     <Text text ="Original Artist" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
-    <Text text ="Original Year" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
-    <Text text ="Original Album" GridPane.rowIndex="4" GridPane.columnIndex="4"/>
-	<Text text ="Name" GridPane.rowIndex="4" GridPane.columnIndex="5"/>
-    <Text text ="Artist" GridPane.rowIndex="4" GridPane.columnIndex="6"/>
-    <Text text ="Year" GridPane.rowIndex="4" GridPane.columnIndex="7"/>
-    <Text text ="Album" GridPane.rowIndex="4" GridPane.columnIndex="8"/>
+	<Text text ="New Name" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+    <Text text ="New Artist" GridPane.rowIndex="4" GridPane.columnIndex="4"/>
+    <Text text ="New Year" GridPane.rowIndex="4" GridPane.columnIndex="5"/>
+    <Text text ="New Album" GridPane.rowIndex="4" GridPane.columnIndex="6"/>
     
     <Button fx:id="edit" onAction="#edit" text= "Edit" GridPane.rowIndex="5" GridPane.columnIndex="0" />
     <TextField fx:id="editOGName" GridPane.rowIndex="5" GridPane.columnIndex="1" />
 	<TextField fx:id="editOGArtist" GridPane.rowIndex="5" GridPane.columnIndex="2" />
-	<TextField GridPane.rowIndex="5" GridPane.columnIndex="3" />
-	<TextField GridPane.rowIndex="5" GridPane.columnIndex="4" />
-	<TextField fx:id="editName" GridPane.rowIndex="5" GridPane.columnIndex="5" />
-	<TextField fx:id= "editArtist" GridPane.rowIndex="5" GridPane.columnIndex="6" />
-	<TextField fx:id= "editYear" GridPane.rowIndex="5" GridPane.columnIndex="7" />
-	<TextField fx:id= "editAlbum" GridPane.rowIndex="5" GridPane.columnIndex="8" />
+	<TextField fx:id="editName" GridPane.rowIndex="5" GridPane.columnIndex="3" />
+	<TextField fx:id= "editArtist" GridPane.rowIndex="5" GridPane.columnIndex="4" />
+	<TextField fx:id= "editYear" GridPane.rowIndex="5" GridPane.columnIndex="5" />
+	<TextField fx:id= "editAlbum" GridPane.rowIndex="5" GridPane.columnIndex="6" />
 	
 	<Button fx:id="delete" onAction="#delete" text = "Delete" GridPane.rowIndex = "6" GridPane.columnIndex="0"/>
 	

@@ -374,6 +374,10 @@ public class SonglibController {
 		}
 		
 		String newString = name + " by " +artist;
+		if(OGString.toLowerCase().equals(newString.toLowerCase())){
+			add(name,artist,year,album,OGString);
+			return; 
+		}
 		if(map.containsKey(newString.toLowerCase())) {
 			Alert info = new Alert(AlertType.INFORMATION);
 			info.initOwner(primaryStage);

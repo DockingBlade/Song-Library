@@ -1,3 +1,0 @@
-A|b|null|null
-a|C|1999|null
-B|B|1999|null
